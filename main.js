@@ -1,4 +1,3 @@
-
 let toDoList = [
     {
         toDo: "Go shopping",
@@ -22,7 +21,7 @@ function showToDoList()
         html+=`
         <div class="list">
         <h2>${toDo.toDo}</h2>
-        <button class="remove" data-toDo-task="${toDo.task}">remove</button>
+        <button class="remove" data-toDo-task="${toDo.toDo}">remove</button>
         <hr>
         </div>
 
@@ -38,17 +37,20 @@ function handleEvents(){
     // Add event listener to entire body an listen for clicks
     document.querySelector('body').addEventListener('click',function(event){
         //Get the closest  product-class to where we clicked 
-        let taskClicked =event.target.closest('.task');
+        let taskClicked =event.target.closest('.list');
         //If you clikc somewhere unrelated, we just return
         if(!taskClicked){return;}
         // If the closest element is the remove button
         let removeButton=event.target.closest('.remove');
+        console.log(removeButton);
         if(removeButton){
             //Get the attribute data-product-name
-        let taskName = removeButton.getAttribute('data-task-toDo')
+        let taskName = removeButton.getAttribute('data-toDo-task')
+        console.log(taskName);
         // Remove product by name from array
-            tasks = tasks.filter((task) =>  task.name!==taskName);
-            taskClicked.remove();
+        toDoList = toDoList.filter((task) =>  task.name!==taskName);
+        taskClicked.remove();
+        event.preventDefault();
            
         }
     });
@@ -59,7 +61,7 @@ function handleEvents(){
         event.preventDefault();
         
         //get the values form the form
-        let toDo = document.querySelector('#toDO').value;
+        let toDo = document.querySelector('#task').value;
        
          //Error Handling,checks that all fields that are checked out
         if(toDo){
@@ -69,14 +71,14 @@ function handleEvents(){
                 
              };
             // Add the product to the products array
-            tasks.push(newtoDo);
+            toDoList.push(newtoDo);
 
             //Reset the form and show new div
             let tasksDiv= document.querySelector('.tasks');
-            tasksDiv.innerHTML=' ';
+            tasksDiv.innerHTML='';
             //Render the products again
             showToDoList();
-            console.log(tasks); //For debugging 
+            console.log(toDoList); //For debugging 
             //Reset the form
             addTaskForm.reset();
         }else{
