@@ -20,7 +20,7 @@ function showToDoList()
     //loop over products
     for (let toDo of toDoList){
         html+=`
-        <div class="listr">
+        <div class="list">
         <h2>${toDo.toDo}</h2>
         <button class="remove" data-toDo-task="${toDo.task}">remove</button>
         <hr>
